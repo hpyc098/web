@@ -1,0 +1,70 @@
+from flask import Flask, request, redirect, url_for
+
+app = Flask(__name__)
+
+# 设置密码（你可以更改为自己的）
+PASSWORD = 'Hpyc20131121'
+
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        user_password = request.form.get('password')
+        if user_password == PASSWORD:
+            return '''
+                <html>
+                    <head>
+                        <title>欢迎页面</title>
+                        <style>
+                            body { font-family: Arial; text-align: center; margin-top: 100px; background-color: #f0f8ff; }
+                            h1 { color: #2c3e50; }
+                            p { color: #34495e; }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>欢迎来到我的网站！</h1>
+                        <p>谢谢访问！</p>
+                        <h1>再见 👋</h1>
+                    </body>
+                </html>
+            '''
+        else:
+            return '''
+                <html>
+                    <head>
+                        <title>密码错误</title>
+                        <style>
+                            body { font-family: Arial; text-align: center; margin-top: 100px; background-color: #fff0f0; }
+                            h3 { color: red; }
+                            a { text-decoration: none; color: #3498db; }
+                        </style>
+                    </head>
+                    <body>
+                        <h3>密码错误，请重新输入</h3>
+                        <a href="/">返回</a>
+                    </body>
+                </html>
+            '''
+    return '''
+        <html>
+            <head>
+                <title>登录页面</title>
+                <style>
+                    body { font-family: Arial; text-align: center; margin-top: 100px; background-color: #f7f9fc; }
+                    input[type="password"] { padding: 10px; font-size: 16px; }
+                    input[type="submit"] { padding: 10px 20px; font-size: 16px; margin-top: 10px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; }
+                    input[type="submit"]:hover { background-color: #2980b9; }
+                </style>
+            </head>
+            <body>
+                <form method="post">
+                    <h2>请输入密码进入页面：</h2>
+                    <input type="password" name="password" placeholder="输入密码">
+                    <br><br>
+                    <input type="submit" value="登录">
+                </form>
+            </body>
+        </html>
+    '''
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5002, debug=True)
